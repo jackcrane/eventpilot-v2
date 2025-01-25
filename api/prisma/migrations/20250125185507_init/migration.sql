@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "AccountType" AS ENUM ('MANAGER', 'OWNER');
+CREATE TYPE "AccountType" AS ENUM ('MANAGER', 'DISPATCHER', 'INSTRUCTOR');
 
 -- CreateEnum
 CREATE TYPE "EmailWebhookType" AS ENUM ('DELIVERY', 'OPEN', 'BOUNCE', 'SPAM_COMPLAINT', 'LINK_CLICK');
@@ -15,7 +15,7 @@ CREATE TABLE "User" (
     "name" TEXT NOT NULL,
     "phoneNumber" TEXT,
     "emailVerified" BOOLEAN NOT NULL DEFAULT false,
-    "accountType" "AccountType" NOT NULL DEFAULT 'OWNER',
+    "accountType" "AccountType" NOT NULL DEFAULT 'INSTRUCTOR',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "suspended" BOOLEAN NOT NULL DEFAULT false,
