@@ -116,7 +116,12 @@ export const put = async (req, res) => {
     From: "EventPilot Support <EventPilot@jackcrane.rocks>",
     To: email,
     Subject: "Verify your email address",
-    HtmlBody: template({ name: user.name, token: emailVerificaton.id }),
+    HtmlBody: await render(
+      WelcomeEmail.WelcomeEmail({
+        name: user.name,
+        token: emailVerificaton.id,
+      })
+    ),
     userId: user.id,
   });
 
