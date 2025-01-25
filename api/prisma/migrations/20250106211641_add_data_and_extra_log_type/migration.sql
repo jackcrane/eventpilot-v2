@@ -1,5 +1,0 @@
--- AlterEnum
-ALTER TYPE "LogType" ADD VALUE 'USER_ACCOUNT_UPDATED';
-
--- AlterTable
-ALTER TABLE "Logs" ADD COLUMN     "data" JSONB;
