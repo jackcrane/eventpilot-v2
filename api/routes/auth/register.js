@@ -3,15 +3,9 @@ import { z } from "zod";
 import { prisma } from "#prisma";
 import { LogType } from "@prisma/client";
 import { sendEmail } from "#postmark";
-import Handlebars from "handlebars";
-import { readFileSync } from "fs";
 import { forceTestError } from "#forceError";
-
-const welcomeEmail = readFileSync(
-  "../react-email/complete/welcome.hbs",
-  "utf8"
-);
-const template = Handlebars.compile(welcomeEmail);
+import WelcomeEmail from "#emails/welcome.jsx";
+import { render } from "@react-email/render";
 
 export const post = async (req, res) => {
   try {
@@ -74,7 +68,12 @@ export const post = async (req, res) => {
       From: "EventPilot Support <EventPilot@jackcrane.rocks>",
       To: email,
       Subject: "Welcome to EventPilot",
-      HtmlBody: template({ name: user.name, token: emailVerificaton.id }),
+      HtmlBody: await render(
+        WelcomeEmail.WelcomeEmail({
+          name: user.name,
+          token: emailVerificaton.id,
+        })
+      ),
       userId: user.id,
     });
 
