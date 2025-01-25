@@ -41,12 +41,10 @@ export const post = async (req, res) => {
     console.log("User: ", user);
     if (!user.emailVerified) {
       console.log("Email not verified");
-      return res
-        .status(400)
-        .json({
-          message:
-            "Your email is not verified. Please check your email for a verification link.",
-        });
+      return res.status(400).json({
+        message:
+          "Your email is not verified. Please check your email for a verification link.",
+      });
     }
 
     await prisma.logs.create({

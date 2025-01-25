@@ -17,7 +17,7 @@ export const Register = () => {
   return (
     <Page title="Register">
       <LoginCard>
-        <Typography.H1>Welcome to Snowcap!</Typography.H1>
+        <Typography.H1>Welcome to EventPilot!</Typography.H1>
         <Text>We are so excited to have you on board!</Text>
         <Typography.Link href="/login">
           Already have an account? Log in here.

@@ -3,9 +3,8 @@ import { prisma } from "#prisma";
 
 // Define role hierarchy
 const ROLE_HIERARCHY = {
-  instructor: 1,
-  dispatcher: 2,
-  manager: 3,
+  owner: 1,
+  manager: 2,
 };
 
 export const verifyAuth =

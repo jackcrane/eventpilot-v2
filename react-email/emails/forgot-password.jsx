@@ -87,7 +87,7 @@ export const WelcomeEmail = ({ name, city, regionName, ip }) => (
           </Text>
           <Button
             as="a"
-            href="https://snowcap.jackcrane.rocks/api/auth/reset-password?token={{token}}"
+            href="https://EventPilot.jackcrane.rocks/api/auth/reset-password?token={{token}}"
             style={styles.button}
           >
             Reset Password
@@ -95,9 +95,9 @@ export const WelcomeEmail = ({ name, city, regionName, ip }) => (
           <Text style={styles.or}>
             We value your privacy and security. Please do not reply to this
             email. If you need, you can{" "}
-            <Link href="mailto:support@snowcap.pro">contact us here</Link>. If
-            you did not request a password reset, please ignore this email. Your
-            account is secure and your password will not be changed.
+            <Link href="mailto:support@EventPilot.pro">contact us here</Link>.
+            If you did not request a password reset, please ignore this email.
+            Your account is secure and your password will not be changed.
           </Text>
         </div>
       </Container>

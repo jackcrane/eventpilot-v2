@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Sidenav } from "../sidenav/Sidenav";
 
 export const Page = ({ children, title, sidenavItems }) => {
-  useTitle(title ? `${title} | Snowcap` : "Snowcap");
+  useTitle(title ? `${title} | EventPilot` : "EventPilot");
 
   return (
     <>

@@ -24,7 +24,7 @@ export default () => {
         {/* <Header /> */}
         <div style={{ padding: "20px" }}>
           <h1>Your account has been suspended</h1>
-          <p>Please contact support@snowcap.pro for assistance.</p>
+          <p>Please contact support@eventpilot.com for assistance.</p>
         </div>
       </div>
     );
