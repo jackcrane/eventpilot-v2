@@ -47,7 +47,7 @@ export const put = async (req, res) => {
     });
 
     await sendEmail({
-      From: "Snowcap Support <snowcap@jackcrane.rocks>",
+      From: "EventPilot Support <EventPilot@jackcrane.rocks>",
       To: email,
       Subject: "Password Reset",
       HtmlBody: template({ name: user.name, token: passwordResetToken.id }),

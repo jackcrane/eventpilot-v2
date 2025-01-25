@@ -71,9 +71,9 @@ export const post = async (req, res) => {
     });
 
     await sendEmail({
-      From: "Snowcap Support <snowcap@jackcrane.rocks>",
+      From: "EventPilot Support <EventPilot@jackcrane.rocks>",
       To: email,
-      Subject: "Welcome to Snowcap",
+      Subject: "Welcome to EventPilot",
       HtmlBody: template({ name: user.name, token: emailVerificaton.id }),
       userId: user.id,
     });
@@ -114,7 +114,7 @@ export const put = async (req, res) => {
   });
 
   await sendEmail({
-    From: "Snowcap Support <snowcap@jackcrane.rocks>",
+    From: "EventPilot Support <EventPilot@jackcrane.rocks>",
     To: email,
     Subject: "Verify your email address",
     HtmlBody: template({ name: user.name, token: emailVerificaton.id }),
