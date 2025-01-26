@@ -4,10 +4,12 @@
   gap: 8px;
   padding: 8px;
   border-right: 2px solid #e0e0e0;
-  width: 200px;
   margin-top: -10px;
   padding-left: 0;
   height: calc(100dvh - 60px);
+
+  flex-grow: 0;
+  flex-shrink: 0;
 
   position: sticky;
   top: 60px;

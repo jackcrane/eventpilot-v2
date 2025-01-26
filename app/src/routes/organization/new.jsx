@@ -23,10 +23,9 @@ export const NewOrganization = () => {
     if (!error || !error.issues) return false;
     return error.issues.some((issue) => issue.path.includes(path));
   };
-  window.errorIncludes = errorIncludes;
 
   return (
-    <Page title="Home" sidenavItems={sidenavItems("")}>
+    <Page title="Create a new organization" sidenavItems={sidenavItems("")}>
       <H1>Create a new organization</H1>
       <Text>
         Create a new organization to manage everything related to your
@@ -171,7 +170,7 @@ export const NewOrganization = () => {
           onClick={() =>
             createOrganization(newOrg, (id) => {
               if (id) {
-                navigate(`/organizations/${id}`);
+                navigate(`/organization/${id}`);
               }
             })
           }

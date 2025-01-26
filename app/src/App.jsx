@@ -13,6 +13,10 @@ import { useFavicon } from "react-use";
 import favicon from "../assets/ico.png";
 import { Index } from "./routes";
 import { NewOrganization } from "./routes/organization/new";
+import { Organization } from "./routes/organization/[orgId]";
+import { NewEvent } from "./routes/organization/[orgId]/event/new";
+import { sidenavItems } from "../components/sidenav/Sidenav";
+import { Event } from "./routes/organization/[orgId]/event/[eventId]";
 
 export default () => {
   const { loggedIn, loading, login, user } = useAuth();
@@ -42,6 +46,15 @@ export default () => {
               <Route path="/" element={<Index />} />
               <Route path="/me" element={<UserProfile />} />
               <Route path="/organization/new" element={<NewOrganization />} />
+              <Route path="/organization/:orgId" element={<Organization />} />
+              <Route
+                path="/organization/:orgId/event/new"
+                element={<NewEvent />}
+              />
+              <Route
+                path="/organization/:orgId/event/:eventId"
+                element={<Event />}
+              />
             </>
           ) : (
             <>
@@ -55,7 +68,7 @@ export default () => {
           <Route
             path="*"
             element={
-              <Page>
+              <Page sidenavItems={sidenavItems("")}>
                 <div
                   style={{
                     display: "flex",

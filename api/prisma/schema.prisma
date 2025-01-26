@@ -21,6 +21,7 @@ model User {
   forgotPasswordTokens ForgotPasswordToken[]
   files File[]
   userOrganizations UserOrganization[]
+  userEvents UserEvent[]
 
   emailPreferences EmailPreferences?
 
@@ -56,6 +57,12 @@ model Logs {
 
   userOrganizationId String?
   userOrganization UserOrganization? @relation(fields: [userOrganizationId], references: [id], onDelete: Cascade)
+
+  userEventId String?
+  userEvent UserEvent? @relation(fields: [userEventId], references: [id], onDelete: Cascade)
+
+  eventId String?
+  event Event? @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
   type LogType
   ip String?
@@ -172,6 +179,7 @@ model File {
   updatedAt DateTime @updatedAt
 
   organizationIcon   Organization? @relation("OrganizationIcon")
+  organizationEvent  Event? @relation("EventIcon")
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -213,6 +221,51 @@ model Organization {
   icon         File? @relation("OrganizationIcon", fields: [iconId], references: [id], onDelete: SetNull)
 
   users UserOrganization[]
+  events Event[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  logs Logs[]
+}
+
+enum UserEventType {
+  OWNER
+  MANAGER
+  INVITED
+}
+
+model UserEvent {
+  id String @id @default(cuid())
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  eventId String
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  type UserEventType @default(INVITED)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  logs Logs[]
+}
+
+model Event {
+  id String @id @default(cuid())
+  name String
+  shortName String
+  email String
+  website String?
+
+  iconId String? @unique
+  icon         File? @relation("EventIcon", fields: [iconId], references: [id], onDelete: SetNull)
+
+  organizationId String
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  users UserEvent[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

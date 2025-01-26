@@ -4,10 +4,12 @@ import { Button } from "tabler-react-2/dist/button";
 import { Util, Dropdown } from "tabler-react-2";
 import { Icon } from "../../util/Icon";
 import { OrgSelector } from "../orgSelector/OrgSelector";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { EventSelector } from "../eventSelector/EventSelector";
 
 export const sidenavItems = (activeText) => {
-  const navigate = useNavigate();
+  const { orgId } = useParams();
+
   const items = [
     {
       type: "custom",
@@ -15,6 +17,33 @@ export const sidenavItems = (activeText) => {
         <OrgSelector
           collapsed={collapsed}
           offerCreateOrg={true}
+          offerHref={true}
+        />
+      ),
+    },
+    orgId && {
+      type: "item",
+      href: `/organization/${orgId}`,
+      text: `Org Home`,
+      active: activeText === "organization",
+      icon: <Icon i="home" size={18} />,
+    },
+    orgId && {
+      type: "item",
+      href: `/organization/${orgId}/settings`,
+      text: `Org Settings`,
+      active: activeText === "settings",
+      icon: <Icon i="settings" size={18} />,
+    },
+    orgId && {
+      type: "divider",
+    },
+    orgId && {
+      type: "custom",
+      content: ({ collapsed }) => (
+        <EventSelector
+          collapsed={collapsed}
+          offerCreateEvent={true}
           offerHref={true}
         />
       ),
@@ -39,7 +68,7 @@ export const sidenavItems = (activeText) => {
       active: activeText === "profile",
       icon: <Icon i="settings" size={18} />,
     },
-  ];
+  ].filter(Boolean);
   return items;
 };
 
@@ -60,7 +89,7 @@ export const Sidenav = ({ items }) => {
     <nav
       className={styles.sidenav}
       style={{
-        width: collapsed ? 50 : 200,
+        flexBasis: collapsed ? 50 : 175,
         transition: "width 0.2s",
       }}
     >

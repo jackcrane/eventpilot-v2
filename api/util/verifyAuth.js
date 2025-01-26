@@ -5,6 +5,7 @@ import { prisma } from "#prisma";
 const ROLE_HIERARCHY = {
   owner: 1,
   manager: 2,
+  public: 3,
 };
 
 export const verifyAuth =
@@ -44,17 +45,10 @@ export const verifyAuth =
             },
           });
 
-          // Get user's role level
-          const userRoleLevel =
-            ROLE_HIERARCHY[userOrg.accountType?.toLowerCase()] || 0;
-
-          // Check if the user's role level meets the minimum required level
-          const requiredRoleLevels = allowedRoles.map(
-            (role) => ROLE_HIERARCHY[role] || 0
-          );
-          const minRequiredRoleLevel = Math.min(...requiredRoleLevels);
-
-          if (userRoleLevel < minRequiredRoleLevel) {
+          if (
+            !allowedRoles.includes(userOrg?.accountType?.toLowerCase()) &&
+            allowedRoles.length > 0
+          ) {
             return res
               .status(403)
               .json({ message: "Access forbidden: insufficient permissions" });

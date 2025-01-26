@@ -10,6 +10,8 @@ const switchPathPieceForDisplay = (pathPiece) => {
       return "Profile";
     case "home":
       return "Home";
+    case "organization":
+      return "Organization";
     default:
       return pathPiece;
   }

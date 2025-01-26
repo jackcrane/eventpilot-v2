@@ -2,8 +2,11 @@ import { Header } from "../header/Header";
 import { useTitle } from "react-use";
 import styled from "styled-components";
 import { Sidenav } from "../sidenav/Sidenav";
+import { Typography } from "tabler-react-2";
+import { Spinner } from "tabler-react-2/dist/spinner";
+const { H3 } = Typography;
 
-export const Page = ({ children, title, sidenavItems }) => {
+export const Page = ({ children, title, sidenavItems, loading = false }) => {
   useTitle(title ? `${title} | EventPilot` : "EventPilot");
 
   return (
@@ -31,7 +34,22 @@ export const Page = ({ children, title, sidenavItems }) => {
             paddingBottom: 100,
           }}
         >
-          {children}
+          {loading ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+                flexDirection: "column",
+              }}
+            >
+              <H3>Loading...</H3>
+              <Spinner size={"lg"} />
+            </div>
+          ) : (
+            children
+          )}
         </div>
       </div>
     </>
