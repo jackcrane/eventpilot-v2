@@ -30,6 +30,13 @@ export const sidenavItems = (activeText) => {
     },
     orgId && {
       type: "item",
+      href: `/organization/${orgId}/sponsors`,
+      text: `Sponsors`,
+      active: activeText === "sponsors",
+      icon: <Icon i="tip-jar" size={18} />,
+    },
+    orgId && {
+      type: "item",
       href: `/organization/${orgId}/settings`,
       text: `Org Settings`,
       active: activeText === "settings",
@@ -51,10 +58,58 @@ export const sidenavItems = (activeText) => {
     orgId &&
       eventId && {
         type: "item",
+        href: `/organization/${orgId}/event/${eventId}`,
+        text: `Event Home`,
+        active: activeText === "home",
+        icon: <Icon i="home" size={18} />,
+      },
+    orgId &&
+      eventId && {
+        type: "item",
+        href: `/organization/${orgId}/event/${eventId}/participants`,
+        text: `Participants`,
+        active: activeText === "participants",
+        icon: <Icon i="users" size={18} />,
+      },
+    orgId &&
+      eventId && {
+        type: "item",
+        href: `/organization/${orgId}/event/${eventId}/checklist`,
+        text: `Checklist`,
+        active: activeText === "todo",
+        icon: <Icon i="checklist" size={18} />,
+      },
+    orgId &&
+      eventId && {
+        type: "item",
+        href: `/organization/${orgId}/event/${eventId}/knowledge`,
+        text: `Knowledge Base`,
+        active: activeText === "knowledge",
+        icon: <Icon i="book" size={18} />,
+      },
+    orgId &&
+      eventId && {
+        type: "item",
         href: `/organization/${orgId}/event/${eventId}/volunteer`,
-        text: `Volunteer`,
+        text: `Volunteers`,
         active: activeText === "volunteer",
         icon: <Icon i="heart" size={18} />,
+      },
+    orgId &&
+      eventId && {
+        type: "item",
+        href: `/organization/${orgId}/event/${eventId}/website`,
+        text: `Website`,
+        active: activeText === "website",
+        icon: <Icon i="app-window" size={18} />,
+      },
+    orgId &&
+      eventId && {
+        type: "item",
+        href: `/organization/${orgId}/event/${eventId}/sponsors`,
+        text: `Sponsors`,
+        active: activeText === "sponsors",
+        icon: <Icon i="tip-jar" size={18} />,
       },
     {
       type: "divider",
