@@ -3,7 +3,6 @@ import { Toaster } from "react-hot-toast";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useAuth } from "../hooks";
 import { Login } from "./routes/auth/login";
-import { Header } from "../components/header/Header";
 import { Page } from "../components/page/Page";
 import { Register } from "./routes/auth/register";
 import { Verify } from "./routes/auth/verify";

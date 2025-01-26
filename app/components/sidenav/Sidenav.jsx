@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { EventSelector } from "../eventSelector/EventSelector";
 
 export const sidenavItems = (activeText) => {
-  const { orgId } = useParams();
+  const { orgId, eventId } = useParams();
 
   const items = [
     {
@@ -48,6 +48,14 @@ export const sidenavItems = (activeText) => {
         />
       ),
     },
+    orgId &&
+      eventId && {
+        type: "item",
+        href: `/organization/${orgId}/event/${eventId}/volunteer`,
+        text: `Volunteer`,
+        active: activeText === "volunteer",
+        icon: <Icon i="heart" size={18} />,
+      },
     {
       type: "divider",
     },
