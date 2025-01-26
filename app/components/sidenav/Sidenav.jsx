@@ -82,7 +82,7 @@ export const sidenavItems = (activeText) => {
     orgId &&
       eventId && {
         type: "item",
-        href: `/organization/${orgId}/event/${eventId}/knowledge`,
+        href: `/organization/${orgId}/event/${eventId}/knowledge-base`,
         text: `Knowledge Base`,
         active: activeText === "knowledge",
         icon: <Icon i="book" size={18} />,

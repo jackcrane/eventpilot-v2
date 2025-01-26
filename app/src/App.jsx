@@ -16,6 +16,7 @@ import { Organization } from "./routes/organization/[orgId]";
 import { NewEvent } from "./routes/organization/[orgId]/event/new";
 import { sidenavItems } from "../components/sidenav/Sidenav";
 import { Event } from "./routes/organization/[orgId]/event/[eventId]";
+import { Knowledge } from "./routes/organization/[orgId]/event/[eventId]/knowledge";
 
 export default () => {
   const { loggedIn, loading, login, user } = useAuth();
@@ -53,6 +54,10 @@ export default () => {
               <Route
                 path="/organization/:orgId/event/:eventId"
                 element={<Event />}
+              />
+              <Route
+                path="/organization/:orgId/event/:eventId/knowledge-base"
+                element={<Knowledge />}
               />
             </>
           ) : (
