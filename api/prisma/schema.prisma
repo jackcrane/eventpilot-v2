@@ -20,20 +20,14 @@ model User {
   logs Logs[]
   forgotPasswordTokens ForgotPasswordToken[]
   files File[]
+  userOrganizations UserOrganization[]
 
   emailPreferences EmailPreferences?
-
-  accountType AccountType @default(MANAGER)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   suspended Boolean @default(false)
-}
-
-enum AccountType {
-  MANAGER
-  OWNER
 }
 
 model EmailPreferences {
@@ -56,6 +50,12 @@ model Logs {
 
   emailId String?
   email Email? @relation(fields: [emailId], references: [id], onDelete: Cascade)
+
+  organizationId String?
+  organization Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  userOrganizationId String?
+  userOrganization UserOrganization? @relation(fields: [userOrganizationId], references: [id], onDelete: Cascade)
 
   type LogType
   ip String?
@@ -139,6 +139,12 @@ enum LogType {
   USER_EMAIL_PREFERENCES_UPDATED
   EMAIL_SENT
   EMAIL_VERIFIED
+  ORG_CREATED
+  ORG_UPDATED
+  ORG_DELETED
+  USER_ASSIGNED_TO_ORG
+  USER_REMOVED_FROM_ORG
+  USER_ORG_TYPE_CHANGED
 }
 
 model Geolocation {
@@ -164,4 +170,52 @@ model File {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  organizationIcon   Organization? @relation("OrganizationIcon")
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Here is the code for the actual application, not the underlying application engine (JackStack) //
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+enum AccountType {
+  MANAGER
+  OWNER
+}
+
+model UserOrganization {
+  id String @id @default(cuid())
+  type AccountType
+
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  organizationId String
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  logs Logs[]
+}
+
+model Organization {
+  id String @id @default(cuid())
+  name String
+  email String
+  privateEmail String?
+  website String?
+  description String?
+  address String?
+
+  iconId String? @unique
+  icon         File? @relation("OrganizationIcon", fields: [iconId], references: [id], onDelete: SetNull)
+
+  users UserOrganization[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  logs Logs[]
 }

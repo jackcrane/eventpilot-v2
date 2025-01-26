@@ -1,0 +1,12 @@
+.orgrow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.orgrow img {
+  height: 24px;
+  transform: scale(1.3);
+}

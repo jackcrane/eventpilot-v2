@@ -11,6 +11,8 @@ import { UserProfile } from "./routes/auth/me";
 import { ForgotPassword } from "./routes/auth/forgot-password";
 import { useFavicon } from "react-use";
 import favicon from "../assets/ico.png";
+import { Index } from "./routes";
+import { NewOrganization } from "./routes/organization/new";
 
 export default () => {
   const { loggedIn, loading, login, user } = useAuth();
@@ -37,7 +39,9 @@ export default () => {
         <Routes>
           {loggedIn ? (
             <>
+              <Route path="/" element={<Index />} />
               <Route path="/me" element={<UserProfile />} />
+              <Route path="/organization/new" element={<NewOrganization />} />
             </>
           ) : (
             <>

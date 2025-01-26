@@ -48,19 +48,19 @@ export const useFileUploader = (endpoint, options) => {
       throw { message: "No files provided", status: 400 };
     }
 
-    return trigger(fileOrFiles)
-      .catch((err) => {
-        console.error("Upload failed in hook:", err);
-        throw err; // Ensure error propagates correctly
-      })
-      .finally(() => {
-        if (!error) {
-          toast.success("File uploaded successfully");
-          if (onSuccessfulUpload) {
-            onSuccessfulUpload(data);
-          }
-        }
-      });
+    try {
+      const responseData = await trigger(fileOrFiles);
+      toast.success("File uploaded successfully");
+
+      if (onSuccessfulUpload) {
+        onSuccessfulUpload(responseData);
+      }
+
+      return responseData;
+    } catch (err) {
+      console.error("Upload failed in hook:", err);
+      throw err; // Ensure error propagates correctly
+    }
   };
 
   return {

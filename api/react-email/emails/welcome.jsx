@@ -72,31 +72,26 @@ export const WelcomeEmail = ({ name, token }) => (
         fontStyle="semibold"
       />
     </Head>
-    <Preview>Welcome to Snowcap, {name}!</Preview>
+    <Preview>Welcome to EventPilot, {name}!</Preview>
     <Body style={styles.main}>
       <Container style={styles.container}>
         <Img src={`https://cdn.jackcrane.rocks/ski.jpg`} width="100%" />
         <div style={styles.content}>
           <Heading mt={0} as={"h1"} style={styles.heading}>
-            Welcome to Snowcap, <b style={{ fontWeight: 600 }}>{name}</b>!
+            Welcome to EventPilot, <b style={{ fontWeight: 600 }}>{name}</b>!
           </Heading>
           <Text>
-            You have taken the next step in your journey to improving your
-            student experiences. We are so excited to have you on board and
-            can't wait to get you on the snow!
-          </Text>
-          <Text>
-            Snowcap is a fully featured ski school management system that helps
-            ski schools optimize operations, improve student experiences, and
-            make instructors more efficient, effective, and engaged.
+            You have taken the next step in your journey to improving
+            participant, volunteer, sponsor, and attendee experiences. We are so
+            excited to have you on board and can't wait to get you started!
           </Text>
           <Text>
             Please click the button below to confirm your email and start your
-            snowcap journey.
+            EventPilot journey.
           </Text>
           <Button
             as="a"
-            href={`https://snowcap.jackcrane.rocks/api/auth/verify?token=${token}`}
+            href={`http://localhost:5173/verify?verificationtoken=${token}`}
             style={styles.button}
           >
             Confirm Email

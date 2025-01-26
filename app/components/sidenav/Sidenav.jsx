@@ -1,11 +1,27 @@
 import React, { useState } from "react";
 import styles from "./sidenav.module.css";
 import { Button } from "tabler-react-2/dist/button";
-import { Util } from "tabler-react-2";
+import { Util, Dropdown } from "tabler-react-2";
 import { Icon } from "../../util/Icon";
+import { OrgSelector } from "../orgSelector/OrgSelector";
+import { useNavigate } from "react-router-dom";
 
 export const sidenavItems = (activeText) => {
+  const navigate = useNavigate();
   const items = [
+    {
+      type: "custom",
+      content: ({ collapsed }) => (
+        <OrgSelector
+          collapsed={collapsed}
+          offerCreateOrg={true}
+          offerHref={true}
+        />
+      ),
+    },
+    {
+      type: "divider",
+    },
     {
       type: "item",
       href: `/`,
@@ -24,7 +40,6 @@ export const sidenavItems = (activeText) => {
       icon: <Icon i="settings" size={18} />,
     },
   ];
-  console.log(items);
   return items;
 };
 
@@ -52,6 +67,10 @@ export const Sidenav = ({ items }) => {
       {items.map((item, index) =>
         item.type === "divider" ? (
           <Util.Hr key={index} />
+        ) : item.type === "custom" ? (
+          <>
+            <item.content collapsed={collapsed} />
+          </>
         ) : (
           <Button
             href={item.href}

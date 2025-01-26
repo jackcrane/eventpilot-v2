@@ -73,13 +73,13 @@ export const LoginEmail = ({ name, city, regionName, ip }) => (
         fontStyle="semibold"
       />
     </Head>
-    <Preview>New login to Snowcap</Preview>
+    <Preview>New login to EventPilot</Preview>
     <Body style={styles.main}>
       <Container style={styles.container}>
         <Img src={"https://cdn.jackcrane.rocks/ski.jpg"} width="100%" />
         <div style={styles.content}>
           <Heading mt={0} as={"h1"} style={styles.heading}>
-            New login to Snowcap
+            New login to EventPilot
           </Heading>
           <Text>
             Hi, {name}! We are writing to inform you that someone has
@@ -96,7 +96,7 @@ export const LoginEmail = ({ name, city, regionName, ip }) => (
           <Text style={styles.or}>
             We value your privacy and security. Please do not reply to this
             email. If you need, you can{" "}
-            <Link href="mailto:support@snowcap.pro">contact us here</Link>.
+            <Link href="mailto:support@eventpilot.com">contact us here</Link>.
           </Text>
         </div>
       </Container>

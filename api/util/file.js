@@ -30,7 +30,12 @@ export const upload =
   ({
     fieldName = "files",
     maxFileSize = 5 * 1024 * 1024, // Default 5MB
-    allowedMimeTypes = ["image/jpeg", "image/png", "application/pdf"],
+    allowedMimeTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/avif",
+      "application/pdf",
+    ],
   } = {}) =>
   (req, res, next) => {
     const dynamicUpload = multer({
@@ -72,7 +77,7 @@ export const upload =
           req.file;
         const userId = req.user?.id || null;
 
-        req.fileLog = await prisma.file.create({
+        req.dbfile = await prisma.file.create({
           data: {
             userId,
             key,
