@@ -6,6 +6,7 @@ import { Icon } from "../../util/Icon";
 import { OrgSelector } from "../orgSelector/OrgSelector";
 import { useNavigate, useParams } from "react-router-dom";
 import { EventSelector } from "../eventSelector/EventSelector";
+import { Row } from "../../util/Flex";
 
 export const sidenavItems = (activeText) => {
   const { orgId, eventId } = useParams();
@@ -87,13 +88,53 @@ export const sidenavItems = (activeText) => {
         active: activeText === "knowledge",
         icon: <Icon i="book" size={18} />,
       },
+    // orgId &&
+    //   eventId && {
+    //     type: "item",
+    //     href: `/organization/${orgId}/event/${eventId}/volunteer`,
+    //     text: `Volunteers`,
+    //     active: activeText === "volunteer",
+    //     icon: <Icon i="heart" size={18} />,
+    //   },
     orgId &&
       eventId && {
-        type: "item",
-        href: `/organization/${orgId}/event/${eventId}/volunteer`,
-        text: `Volunteers`,
-        active: activeText === "volunteer",
-        icon: <Icon i="heart" size={18} />,
+        type: "custom",
+        content: ({ collapsed }) => (
+          <Dropdown
+            hideToggleIcon={collapsed}
+            prompt={
+              <Row gap={1}>
+                <Icon i="heart" size={18} />
+                {!collapsed && <span>Volunteers</span>}
+              </Row>
+            }
+            toggleStyle={{
+              width: "100%",
+            }}
+            dropdownClassName={
+              activeText === "volunteer" ||
+              activeText === "volunteer-registration-builder"
+                ? "btn-outline-primary"
+                : ""
+            }
+            items={[
+              {
+                type: "item",
+                href: `/organization/${orgId}/event/${eventId}/volunteer`,
+                text: "Volunteers",
+                active: activeText === "volunteer",
+                icon: <Icon i="heart" size={18} />,
+              },
+              {
+                type: "item",
+                href: `/organization/${orgId}/event/${eventId}/volunteer/registration-builder`,
+                text: "Registration Builder",
+                active: activeText === "volunteer-registration-builder",
+                icon: <Icon i="forms" size={18} />,
+              },
+            ]}
+          ></Dropdown>
+        ),
       },
     orgId &&
       eventId && {

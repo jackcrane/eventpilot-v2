@@ -1,0 +1,32 @@
+.container {
+  position: relative;
+}
+
+.clickHost {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.popup {
+  position: absolute;
+  top: 40px;
+  right: 0px;
+  height: 300px;
+  width: 300px;
+  overflow-y: auto;
+  z-index: 10;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3) !important;
+}
+
+.results {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.results > * {
+  aspect-ratio: 1 / 1;
+}

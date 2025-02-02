@@ -18,6 +18,7 @@ export const Breadcrumbs = () => {
     organization: "Organization",
     "knowledge-base": "Knowledge Base",
     event: "Event",
+    volunteer: "Volunteer",
   });
 
   useEffect(() => {

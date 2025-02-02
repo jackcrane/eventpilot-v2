@@ -10,6 +10,7 @@ export const Row = styled.div`
   align-items: ${({ align }) => align || "center"};
   justify-content: ${({ justify }) => justify};
   gap: ${({ gap }) => gap * 8 || 0}px;
+  flex-wrap: ${({ wrap }) => (wrap ? "wrap" : "nowrap")};
 `;
 
 export const Col = styled.div`

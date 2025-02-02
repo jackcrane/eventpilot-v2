@@ -1,5 +1,5 @@
-import React from "react";
-import { Dropdown } from "tabler-react-2";
+import React, { useEffect } from "react";
+import { Dropdown, Spinner, Button } from "tabler-react-2";
 import { Icon } from "../../util/Icon";
 import styles from "./orgselector.module.css";
 import { useOrganizations } from "../../hooks/useOrganizations";
@@ -20,6 +20,18 @@ export const OrgSelector = ({
   const { organizations, loading } = useOrganizations();
   const { orgId } = useParams();
   const { organization } = useOrganization({ id: orgId });
+
+  useEffect(() => {
+    console.log(organizations);
+  }, [organizations]);
+
+  if (organizations.length === 0) {
+    return (
+      <Button>
+        <Spinner size="sm" />
+      </Button>
+    );
+  }
 
   return (
     <Dropdown
@@ -45,7 +57,7 @@ export const OrgSelector = ({
           href: offerHref && `/organization/${org.id}`,
           id: org.id,
           text: (
-            <div className={styles.orgrow}>
+            <div className={styles.orgrow} data-org={JSON.stringify(org)}>
               <img src={org.icon.location} />
               {!collapsed && <span>{truncate(org.name)}</span>}
             </div>
