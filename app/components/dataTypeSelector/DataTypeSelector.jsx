@@ -1,4 +1,5 @@
 import { EnclosedSelectGroup, Typography } from "tabler-react-2";
+import Badge from "tabler-react-2/dist/badge";
 const { Text } = Typography;
 
 export const DataTypeSelector = ({ value, onChange }) => {
@@ -32,9 +33,10 @@ export const DataTypeSelector = ({ value, onChange }) => {
         },
         {
           value: "number",
+          disabled: true,
           content: (
             <div>
-              <b>Number</b>
+              <b>Number</b> <Badge>Coming Soon</Badge>
               <Text className="mb-0">
                 A basic numeric input that allows integers and decimals
               </Text>
@@ -43,9 +45,10 @@ export const DataTypeSelector = ({ value, onChange }) => {
         },
         {
           value: "datetime",
+          disabled: true,
           content: (
             <div>
-              <b>Datetime</b>
+              <b>Datetime</b> <Badge>Coming Soon</Badge>
               <Text className="mb-0">
                 A basic datetime input that allows users to select a date and
                 time.
@@ -55,9 +58,10 @@ export const DataTypeSelector = ({ value, onChange }) => {
         },
         {
           value: "email",
+          disabled: true,
           content: (
             <div>
-              <b>Email</b>
+              <b>Email</b> <Badge>Coming Soon</Badge>
               <Text className="mb-0">
                 A basic email input that validates email addresses.{" "}
                 <i>
@@ -70,9 +74,10 @@ export const DataTypeSelector = ({ value, onChange }) => {
         },
         {
           value: "select",
+          disabled: true,
           content: (
             <div>
-              <b>Select</b>
+              <b>Select</b> <Badge>Coming Soon</Badge>
               <Text className="mb-0">
                 Allow your users to select from a list of options. It will look
                 like this field form.
@@ -82,9 +87,10 @@ export const DataTypeSelector = ({ value, onChange }) => {
         },
         {
           value: "dropdown",
+          disabled: true,
           content: (
             <div>
-              <b>Dropdown</b>
+              <b>Dropdown</b> <Badge>Coming Soon</Badge>
               <Text className="mb-0">
                 Allow your users to select from a long, searchable list of
                 options.
@@ -94,9 +100,10 @@ export const DataTypeSelector = ({ value, onChange }) => {
         },
         {
           value: "boolean",
+          disabled: true,
           content: (
             <div>
-              <b>Yes/No</b>
+              <b>Yes/No</b> <Badge>Coming Soon</Badge>
               <Text className="mb-0">
                 Allow your users to select a yes or no option.
               </Text>

@@ -2183,6 +2183,13 @@ react-dropzone@^14.3.5:
     file-selector "^2.1.0"
     prop-types "^15.8.1"
 
+react-font-loader@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-font-loader/-/react-font-loader-2.0.0.tgz#3d17e8050ab3ff46ead1798344a4e881c9c41b29"
+  integrity sha512-EYIhz49HS9YLiYtPW12zdWVliUBMyTzCd97+okfZHOSu2RS2nLzLKhbp7DvJ8mr9LfqPG1d3RewP6HJyr/z6Qg==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-hot-toast@^2.5.1:
   version "2.5.1"
   resolved "https://registry.npmjs.org/react-hot-toast/-/react-hot-toast-2.5.1.tgz"
@@ -2550,10 +2557,10 @@ swr@^2.3.0:
     dequal "^2.0.3"
     use-sync-external-store "^1.4.0"
 
-tabler-react-2@0.1.69:
-  version "0.1.69"
-  resolved "https://registry.yarnpkg.com/tabler-react-2/-/tabler-react-2-0.1.69.tgz#8696fa41eb354ba3aa2038affd2c7c7fddd942c8"
-  integrity sha512-+9rS4zMT932HTAsGTFWuL8h8kZO59PnKy9a4fSldAqbDSh32iDqfaeXe9ySC6Lvmee3OvUD0kZZl+2FOHJZUoQ==
+tabler-react-2@0.1.76:
+  version "0.1.76"
+  resolved "https://registry.yarnpkg.com/tabler-react-2/-/tabler-react-2-0.1.76.tgz#8db0632ee201fc1c8bee1527280a0f0d15516f4c"
+  integrity sha512-/Bu7yvoq+Gyzlsm/LTEFypVkRJtKeZ73rmmzEEWEAs1yxqG9B4LqKhEkYUyZhh/TWozsp8ROMElV0cs+l3mMxA==
   dependencies:
     "@babel/cli" "^7.24.8"
     "@babel/core" "^7.24.8"

@@ -11,6 +11,7 @@ const ROLE_HIERARCHY = {
 export const verifyAuth =
   (allowedRoles = []) =>
   async (req, res, next) => {
+    req.verifyAuthCalled = true;
     const authHeader = req.headers.authorization;
 
     if (authHeader) {
@@ -46,9 +47,11 @@ export const verifyAuth =
           });
 
           if (
-            !allowedRoles.includes(userOrg?.accountType?.toLowerCase()) &&
+            !allowedRoles.includes(userOrg?.type?.toLowerCase()) &&
             allowedRoles.length > 0
           ) {
+            console.log(userOrg);
+
             return res
               .status(403)
               .json({ message: "Access forbidden: insufficient permissions" });

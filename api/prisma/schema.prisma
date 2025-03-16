@@ -265,10 +265,38 @@ model Event {
   organizationId String
   organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
+  registrationFormFields VolunteerRegistrationFormField[]
+
   users UserEvent[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   logs Logs[]
+}
+
+model VolunteerRegistrationFormField {
+  id String @id @default(cuid())
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId String
+
+  sortIndex Int
+
+  label String
+  hint String?
+  description String?
+  icon String?
+
+  required Boolean @default(false)
+
+  type VolunteerRegistrationFormFieldType
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum VolunteerRegistrationFormFieldType {
+  TEXT
+  STRING
 }

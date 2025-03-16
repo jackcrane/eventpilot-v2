@@ -3,7 +3,7 @@ import { authFetch } from "../util/url";
 import toast from "react-hot-toast";
 import { useState } from "react";
 
-const fetcher = (url) => authFetch(url).then((r) => r.json());
+const fetcher = (url) => authFetch(url, null, false).then((r) => r.json());
 
 export const useEvent = ({ orgId, eventId }) => {
   const [mutationLoading, setMutationLoading] = useState(false);

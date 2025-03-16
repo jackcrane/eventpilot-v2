@@ -21,10 +21,6 @@ export const OrgSelector = ({
   const { orgId } = useParams();
   const { organization } = useOrganization({ id: orgId });
 
-  useEffect(() => {
-    console.log(organizations);
-  }, [organizations]);
-
   if (organizations.length === 0) {
     return (
       <Button>
@@ -59,7 +55,7 @@ export const OrgSelector = ({
           text: (
             <div className={styles.orgrow} data-org={JSON.stringify(org)}>
               <img src={org.icon.location} />
-              {!collapsed && <span>{truncate(org.name)}</span>}
+              {<span>{truncate(org.name)}</span>}
             </div>
           ),
         })),

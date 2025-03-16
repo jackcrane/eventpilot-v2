@@ -19,6 +19,7 @@ import { Event } from "./routes/organization/[orgId]/event/[eventId]";
 import { Knowledge } from "./routes/organization/[orgId]/event/[eventId]/knowledge";
 import { Volunteer } from "./routes/organization/[orgId]/event/[eventId]/volunteer";
 import { RegistrationBuilder } from "./routes/organization/[orgId]/event/[eventId]/volunteer/registration-builder";
+import { Volunteer as PerOrgVolunteer } from "./routes/per-org/Volunteer";
 
 export default () => {
   const { loggedIn, loading, login, user } = useAuth();
@@ -38,9 +39,25 @@ export default () => {
     );
   }
 
+  const splitHostName = window.location.hostname.split(".");
+  const subdomain = splitHostName.length > 1 ? splitHostName[0] : null;
+
+  if (subdomain) {
+    return (
+      <div>
+        <Toaster position="bottom-right" />
+        <Router>
+          <Routes>
+            <Route path="/volunteer" element={<PerOrgVolunteer />} />
+          </Routes>
+        </Router>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <Toaster />
+      <Toaster position="bottom-right" />
       <Router>
         <Routes>
           {loggedIn ? (

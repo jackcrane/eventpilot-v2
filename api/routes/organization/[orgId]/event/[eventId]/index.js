@@ -1,8 +1,10 @@
 import { prisma } from "#prisma";
-import { verifyAuth } from "#verifyAuth";
+// import { verifyAuth } from "#verifyAuth";
+import { config } from "dotenv";
+config();
 
 export const get = [
-  verifyAuth(),
+  // verifyAuth(),
   async (req, res) => {
     const event = await prisma.event.findUnique({
       where: {
@@ -22,8 +24,15 @@ export const get = [
       },
     });
 
+    if (!event) {
+      return res.status(404).json({ error: "Event not found" });
+    }
+
     res.json({
-      event,
+      event: {
+        ...event,
+        hostedUrl: `http://${event.shortName}.${process.env.BASE_APP_URL}`,
+      },
     });
   },
 ];

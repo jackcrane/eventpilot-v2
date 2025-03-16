@@ -8,12 +8,19 @@ import {
   Input,
   Form,
   useConfirm,
+  Switch,
+  Util,
 } from "tabler-react-2";
 import { Sortable } from "../../../../../../../components/sortable/Sortable";
 import { IconSelector } from "../../../../../../../components/iconSelector/IconSelector";
 import { DataTypeSelector } from "../../../../../../../components/dataTypeSelector/DataTypeSelector";
 import { Row } from "../../../../../../../util/Flex";
 import { Icon } from "../../../../../../../util/Icon";
+import { Spacer } from "../../../../../../../util/Spacer";
+import { useEvent } from "../../../../../../../hooks/useEvent";
+import { useParams } from "react-router-dom";
+import { UnsavedNotice } from "../../../../../../../components/unsavedNotice/UnsavedNotice";
+import { useVolunteerRegistrationFormFields } from "../../../../../../../hooks/useVolunteerRegistrationFormFields";
 const { Text, H3 } = Typography;
 
 const InputTypeStringConfigItem = ({
@@ -80,6 +87,11 @@ const InputTypeStringConfigItem = ({
         value={item.description}
         onInput={(value) => updateField("description", value)}
       />
+      <Switch
+        label="Required"
+        checked={item.required}
+        onChange={(value) => updateField("required", value)}
+      />
     </div>
   );
 };
@@ -115,14 +127,30 @@ const InputTypeTextConfigItem = ({ setRegistrationFields, item, confirm }) => {
       <Text className="text-secondary">
         A block that does not accept input, but can display text.
       </Text>
+      <Row gap={1}>
+        <Input
+          label="Enter a label for this field"
+          placeholder="This will appear above the field & show in dashboards"
+          value={item.label}
+          onInput={(value) => updateField("label", value)}
+          style={{ flex: 1 }}
+        />
+        <div class="mb-3">
+          <label className="form-label">Icon</label>
+          <IconSelector
+            value={item.icon}
+            onChange={(value) => updateField("icon", value)}
+          />
+        </div>
+      </Row>
       <Form.Autosize
         style={{
           width: "100%",
         }}
         title="Enter the content of this block"
         placeholder="Your content here"
-        value={item.content}
-        onInput={(value) => updateField("content", value)}
+        value={item.description}
+        onInput={(value) => updateField("description", value.target.value)}
       />
     </div>
   );
@@ -423,7 +451,17 @@ export const RegistrationInputBuilder = ({ onFinish }) => {
 };
 
 export const RegistrationBuilder = () => {
+  const {
+    registrationFields: serverRegistrationFields,
+    loading: loadingServerRegistrationFields,
+    update,
+  } = useVolunteerRegistrationFormFields();
   const [registrationFields, setRegistrationFields] = useState([]);
+  useEffect(() => {
+    if (serverRegistrationFields) {
+      setRegistrationFields(serverRegistrationFields);
+    }
+  }, [serverRegistrationFields]);
 
   const [inputModalOpen, setInputModalOpen] = useState(false);
 
@@ -433,6 +471,21 @@ export const RegistrationBuilder = () => {
     commitText: "Yes",
     cancelText: "No",
   });
+  const { orgId, eventId } = useParams();
+  const { event, loading } = useEvent({
+    orgId,
+    eventId,
+  });
+  const [openWindow, setOpenWindow] = useState(null);
+
+  useEffect(() => {
+    if (openWindow) {
+      openWindow.postMessage(
+        JSON.stringify({ __eventpilotRegistrationFields: registrationFields }),
+        "*"
+      );
+    }
+  }, [openWindow, registrationFields]);
 
   return (
     <Page
@@ -450,11 +503,36 @@ export const RegistrationBuilder = () => {
         We automatically collect the user's name and email address, but beyond
         that you can collect any additional information you need.
       </Text>
+      <Row gap={1}>
+        <Button
+          onClick={async () => {
+            let w = window.open(
+              event.hostedUrl + "/volunteer",
+              "_blank",
+              "width=600,height=400"
+            );
+            setOpenWindow(w);
+            await new Promise((resolve) => setTimeout(resolve, 100));
+            w.postMessage(
+              JSON.stringify({
+                __eventpilotRegistrationFields: registrationFields,
+              }),
+              "*"
+            );
+          }}
+        >
+          Open preview registration window
+        </Button>
+      </Row>
+      <Spacer />
       <Sortable
-        // items={registrationFields}
         items={registrationFields.map((item) => ({
           ...item,
-          content: INPUT_MAP[item.type]?.({
+          style: {
+            borderColor: item.id.includes("_") ? "var(--tblr-warning)" : null,
+          },
+          unsaved: item.id.includes("_"),
+          content: INPUT_MAP[item.type?.toLowerCase()]?.({
             setRegistrationFields,
             item,
             confirm,
@@ -487,17 +565,30 @@ export const RegistrationBuilder = () => {
       <Button style={{ width: "100%" }} onClick={() => setInputModalOpen(true)}>
         Add Field
       </Button>
+      <Util.Spacer size={1} />
+      <Button
+        style={{ width: "100%" }}
+        onClick={() => update(registrationFields)}
+        variant="primary"
+        loading={loadingServerRegistrationFields}
+      >
+        Save your work
+      </Button>
       <Modal
         title="Add Field"
         open={inputModalOpen}
         onClose={() => setInputModalOpen(false)}
+        modalBodyStyle={{
+          overflow: "auto",
+        }}
       >
         <RegistrationInputBuilder
           onFinish={(type) => {
             setRegistrationFields((prev) => [
               ...prev,
               {
-                id: prev.length + 1,
+                sortIndex: prev.length + 1,
+                id: "_" + (prev.length + 1),
                 type: `${type.value}`,
               },
             ]);
