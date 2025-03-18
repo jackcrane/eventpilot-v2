@@ -78,8 +78,8 @@ const InputTypeStringConfigItem = ({
       <Input
         label="Enter a hint for this field"
         placeholder="This will appear in the field"
-        value={item.placeholder}
-        onInput={(value) => updateField("placeholder", value)}
+        value={item.hint}
+        onInput={(value) => updateField("hint", value)}
       />
       <Input
         label="Enter a description for this field"
@@ -211,8 +211,8 @@ const InputTypeNumberConfigItem = ({
       <Input
         label="Enter a hint for this field"
         placeholder="This will appear in the field"
-        value={item.placeholder}
-        onInput={(value) => updateField("placeholder", value)}
+        value={item.hint}
+        onInput={(value) => updateField("hint", value)}
       />
       <Input
         label="Enter a description for this field"
@@ -292,8 +292,8 @@ const InputTypeEmailConfigItem = ({ setRegistrationFields, item, confirm }) => {
       <Input
         label="Enter a hint for this field"
         placeholder="This will appear in the field"
-        value={item.placeholder}
-        onInput={(value) => updateField("placeholder", value)}
+        value={item.hint}
+        onInput={(value) => updateField("hint", value)}
       />
       <Input
         label="Enter a description for this field"
@@ -451,11 +451,15 @@ export const RegistrationInputBuilder = ({ onFinish }) => {
 };
 
 export const RegistrationBuilder = () => {
+  const { orgId, eventId } = useParams();
   const {
     registrationFields: serverRegistrationFields,
     loading: loadingServerRegistrationFields,
     update,
-  } = useVolunteerRegistrationFormFields();
+  } = useVolunteerRegistrationFormFields({
+    orgId,
+    eventId,
+  });
   const [registrationFields, setRegistrationFields] = useState([]);
   useEffect(() => {
     if (serverRegistrationFields) {
@@ -471,7 +475,7 @@ export const RegistrationBuilder = () => {
     commitText: "Yes",
     cancelText: "No",
   });
-  const { orgId, eventId } = useParams();
+
   const { event, loading } = useEvent({
     orgId,
     eventId,
@@ -526,18 +530,20 @@ export const RegistrationBuilder = () => {
       </Row>
       <Spacer />
       <Sortable
-        items={registrationFields.map((item) => ({
-          ...item,
-          style: {
-            borderColor: item.id.includes("_") ? "var(--tblr-warning)" : null,
-          },
-          unsaved: item.id.includes("_"),
-          content: INPUT_MAP[item.type?.toLowerCase()]?.({
-            setRegistrationFields,
-            item,
-            confirm,
-          }) || <div>Unknown input type {JSON.stringify(item)}</div>,
-        }))}
+        items={registrationFields
+          .filter((item) => !item.system_set)
+          .map((item) => ({
+            ...item,
+            style: {
+              borderColor: item.id.includes("_") ? "var(--tblr-warning)" : null,
+            },
+            unsaved: item.id.includes("_"),
+            content: INPUT_MAP[item.type?.toLowerCase()]?.({
+              setRegistrationFields,
+              item,
+              confirm,
+            }) || <div>Unknown input type {JSON.stringify(item)}</div>,
+          }))}
         onChange={setRegistrationFields}
         lockedItems={[
           {

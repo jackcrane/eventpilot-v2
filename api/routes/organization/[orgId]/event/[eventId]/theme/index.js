@@ -3,22 +3,27 @@ export const get = [
     return res.json({
       theme: {
         colors: {
-          primary: "#0a837f",
-          secondary: "#ff6b6b",
-          background: "#f8f9fa",
-          surface: "#ffffff",
-          text: "#212529",
-          textSecondary: "#6c757d",
-          border: "#dee2e6",
-          success: "#28a745",
-          warning: "#ffc107",
-          error: "#dc3545",
-          info: "#17a2b8",
+          primary: "#7a5c58", // Elegant muted copper
+          secondary: "#526760", // Deep desaturated teal
+          background: "#f8f6f3", // Soft off-white
+          surface: "#ede9e6", // Slightly warmer off-white for cards and panels
+          text: "#2e2a26", // Rich espresso brown for readability
+          textSecondary: "#6d665f", // Muted taupe for subtle contrast
+          border: "#b8b2ac", // Soft neutral gray for refined borders
+          success: "#6b8e6b", // Subdued forest green
+          warning: "#d1a05a", // Muted golden amber
+          error: "#9c5c5c", // Deep rosewood red
+          info: "#5c738c", // Desaturated blue-gray
         },
         fonts: {
+          heading: {
+            loader: "https://fonts.googleapis.com/css2?family=Yeseva+One",
+            fontFace: "'Yeseva One'",
+            weight: 400,
+          },
           body: {
-            loader: "https://fonts.googleapis.com/css2?family=Red+Hat+Display",
-            fontFace: "'Red Hat Display'",
+            loader: "https://fonts.googleapis.com/css2?family=Roboto",
+            fontFace: "Roboto",
           },
           // heading: "'DM Serif Display', serif",
           // monospace: "'Fira Code', monospace",
@@ -70,6 +75,9 @@ export const get = [
           md: "1024px",
           lg: "1280px",
           xl: "1440px",
+        },
+        configurables: {
+          borderRadiusMultiplier: 1,
         },
       },
     });

@@ -1,0 +1,66 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--colors-background);
+}
+
+.container * {
+  font-family: var(--fonts-body-font-face);
+}
+
+.container h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--fonts-heading-font-face), var(--fonts-body-font-face);
+  font-weight: var(--fonts-heading-weight);
+  margin-bottom: 0;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  background-color: var(--colors-surface);
+  border-bottom: var(--borders-medium) var(--colors-border);
+  gap: var(--spacing-md);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header .logo {
+  max-width: 250px;
+  max-height: 50px;
+}
+
+.header h1 {
+  font-size: var(--font-sizes-xxl);
+  color: var(--colors-text);
+}
+
+.progress {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-md);
+}
+
+.progress > div {
+  width: 100%;
+  height: 6px;
+  background-color: var(--colors-surface);
+}
+
+.fields {
+  margin: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}

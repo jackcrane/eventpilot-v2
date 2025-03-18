@@ -17,10 +17,14 @@ export const post = [
     }
 
     // Separate new fields (with underscores in their IDs) from existing ones
-    const newFields = req.body.fields.filter((field) => field.id.includes("_"));
-    const updateFields = req.body.fields.filter(
-      (field) => !field.id.includes("_")
-    );
+    // console.log(req.body.fields.filter((field) => !field.system_set));
+    const newFields = req.body.fields
+      .filter((field) => !field.system_set)
+      .filter((field) => field.id.includes("_"));
+
+    const updateFields = req.body.fields
+      .filter((field) => !field.system_set)
+      .filter((field) => !field.id.includes("_"));
 
     // Create new fields (unchanged behavior)
     if (newFields.length > 0) {
@@ -138,8 +142,10 @@ export const get = [
       return res.status(404).json({ error: "Event not found" });
     }
 
+    const fieldsToSend = [...event.registrationFormFields];
+
     res.json({
-      fields: event.registrationFormFields,
+      fields: fieldsToSend,
     });
   },
 ];

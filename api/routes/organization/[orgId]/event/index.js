@@ -112,6 +112,32 @@ export const post = [
       },
     });
 
+    // Insert default volunteer registration form fields
+    await prisma.volunteerRegistrationFormField.createMany({
+      data: [
+        {
+          eventId: newEvent.id,
+          type: "STRING",
+          label: "What is your name?",
+          hint: "John Doe",
+          required: true,
+          icon: "user",
+          system_set: true,
+          sortIndex: -2,
+        },
+        {
+          eventId: newEvent.id,
+          type: "EMAIL",
+          label: "What is your email address?",
+          hint: "john.doe@example.com",
+          required: true,
+          icon: "mail",
+          system_set: true,
+          sortIndex: -1,
+        },
+      ],
+    });
+
     const events = await prisma.event.findMany({
       where: {
         users: {

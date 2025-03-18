@@ -290,6 +290,8 @@ model VolunteerRegistrationFormField {
 
   required Boolean @default(false)
 
+  system_set Boolean @default(false)
+
   type VolunteerRegistrationFormFieldType
 
   createdAt DateTime @default(now())
@@ -299,4 +301,5 @@ model VolunteerRegistrationFormField {
 enum VolunteerRegistrationFormFieldType {
   TEXT
   STRING
+  EMAIL
 }
